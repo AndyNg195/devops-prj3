@@ -1,0 +1,30 @@
+namespace: dev
+
+services:
+  config-server:
+    image:
+      tag: f5d27e2
+
+  discovery-server:
+    image:
+      tag: f5d27e2
+
+  admin-server:
+    image:
+      tag: f5d27e2
+
+  customers-service:
+    image:
+      tag: f5d27e2
+
+  visits-service:
+    image:
+      tag: 1b746e6
+
+  vets-service:
+    image:
+      tag: f5d27e2
+
+  api-gateway:
+    image:
+      tag: f5d27e2
