@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-alloy
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: alloy                  # chart name shown by `helm list`
+    targetRevision: 1.1.0         # ← chart version that is running
+    helm:
+      releaseName: grafana-alloy
+      valuesFiles:
+        - ../values/alloy.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: loki               # same ns as Loki (change if you prefer)
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

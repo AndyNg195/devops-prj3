@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: argocd               # Argo CD control plane
+spec:
+  project: default
+
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: loki                   # chart name shown by `helm list`
+    targetRevision: 6.30.1        # ← chart version that is running
+    helm:
+      releaseName: loki
+      valuesFiles:
+        - ../values/loki.yaml  # your custom values
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: loki
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

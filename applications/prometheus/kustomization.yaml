@@ -1,0 +1,14 @@
+resources:
+- clusterRole.yaml
+- deployment.yaml
+- service.yaml
+
+configMapGenerator:
+- name: prometheus-server-conf
+  namespace: monitoring
+  files:
+    - config-gen/prometheus.yml
+    - config-gen/prometheus.rules
+    # any other files…
+generatorOptions:
+  disableNameSuffixHash: true   # keeps a stable ConfigMap name
