@@ -17,7 +17,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: loki               # same ns as Loki (change if you prefer)
+    namespace: loki
 
   syncPolicy:
     automated:
