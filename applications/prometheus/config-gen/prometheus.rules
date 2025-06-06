@@ -8,3 +8,14 @@ groups:
       severity: slack
     annotations:
       summary: High Memory Usage
+
+- name: request-alerts
+  rules:
+  - alert: HighErrorRate
+    expr: increase(http_requests_total{status=~"5.."}[30s]) > 10
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      summary: "High number of 5xx errors"
+      description: "More than 10 requests with 5xx errors in the last 30 seconds"
