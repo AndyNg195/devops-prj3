@@ -19,20 +19,21 @@ loki:
   storage_config:
     filesystem:
       directory: /tmp/loki/chunks
-  pattern_ingester:
-    enabled: true
-    stages:
-      - regex:
-          expression: '.*\[(?P<trace_id>[0-9a-f]{16,32})-(?P<span_id>[0-9a-f]{16,32})\].*'
-      - labels:
-          trace_id: "{{ .trace_id }}"
-          span_id: "{{ .span_id }}"
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
   ruler:
     enable_api: true
   auth_enabled: false
+
+pattern_ingester:
+  enabled: true
+  stages:
+    - regex:
+        expression: '.*\[(?P<trace_id>[0-9a-f]{16,32})-(?P<span_id>[0-9a-f]{16,32})\].*'
+    - labels:
+        trace_id: "{{ .trace_id }}"
+        span_id: "{{ .span_id }}"
 
 minio:
   enabled: false
