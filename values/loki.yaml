@@ -21,6 +21,11 @@ loki:
       directory: /tmp/loki/chunks
   pattern_ingester:
     enabled: true
+    stages:
+      - regex:
+          expression: '.*"trace_id":\s*"(?P<trace_id>[A-Za-z0-9\-_]+)".*'
+      - labels:
+          trace_id: "$trace_id"
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
@@ -40,7 +45,6 @@ singleBinary:
     accessModes:
       - ReadWriteOnce
     size: 5Gi
-
   resources:
     requests:
       cpu: "300m"
