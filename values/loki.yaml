@@ -26,7 +26,7 @@ loki:
     enable_api: true
   auth_enabled: false
 
-pattern_ingester:
+patternIngester:
   enabled: true
   stages:
     - regex:
