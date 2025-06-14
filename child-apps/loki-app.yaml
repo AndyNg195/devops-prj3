@@ -2,14 +2,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: loki
-  namespace: argocd               # Argo CD control plane
+  namespace: argocd
 spec:
   project: default
 
   source:
     repoURL: https://grafana.github.io/helm-charts
-    chart: loki                   # chart name shown by `helm list`
-    targetRevision: 6.30.1        # version chart đang chạy
+    chart: loki
+    targetRevision: 6.30.1
     helm:
       releaseName: loki
       values: |
@@ -38,9 +38,10 @@ spec:
             enabled: true
             stages:
               - regex:
-                  expression: '.*"trace_id":\s*"(?P<trace_id>[A-Za-z0-9\-_]+)".*'
+                  expression: '.*\[(?P<trace_id>[A-Za-z0-9]+)-(?P<spanid>[A-Za-z0-9]+)\].*'
               - labels:
                   trace_id: "$trace_id"
+                  spanid: "$spanid"
           limits_config:
             allow_structured_metadata: true
             volume_enabled: true
