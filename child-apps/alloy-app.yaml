@@ -61,6 +61,18 @@ spec:
                   older_than          = "1h"
                   drop_counter_reason = "too old"
                 }
+
+                stage.regex {
+                  expression = "\\[(?P<trace_id>[0-9a-f]{16,32})-(?P<span_id>[0-9a-f]{16,32})\\]"
+                }
+
+                stage.labels {
+                  values = {
+                    trace_id = "{{ .trace_id }}"
+                    span_id = "{{ .span_id }}"
+                  }
+                }
+
                 stage.match { 
                   selector = "{instance=~\".*\"}"
                   stage.json {
