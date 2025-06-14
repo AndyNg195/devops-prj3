@@ -38,10 +38,10 @@ spec:
             enabled: true
             stages:
               - regex:
-                  expression: '.*\[(?P<trace_id>[A-Za-z0-9]+)-(?P<spanid>[A-Za-z0-9]+)\].*'
+                  expression: '.*\[(?P<trace_id>[A-Za-z0-9]+)-(?P<span_id>[A-Za-z0-9]+)\].*'
               - labels:
                   trace_id: "$trace_id"
-                  spanid: "$spanid"
+                  spanid: "$span_id"
           limits_config:
             allow_structured_metadata: true
             volume_enabled: true
